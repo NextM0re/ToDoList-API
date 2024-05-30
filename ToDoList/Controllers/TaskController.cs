@@ -15,7 +15,6 @@ public class TaskController(IRepository<Task> taskRepository, IRepository<TaskLi
 {
     // Нет проверки на несуществующий такс лист
     [HttpPost]
-    [Route("/createt")]
     public ActionResult<ResponseTaskDto> CreateTask(RequestTaskDto requestTask)
     {
         var tokenIdResult = ValidateTokenId();
@@ -34,7 +33,6 @@ public class TaskController(IRepository<Task> taskRepository, IRepository<TaskLi
     }
     
     [HttpGet]
-    [Route("/getallt")]
     public ActionResult<List<ResponseTaskDto>> GetAllTasks()
     {
         var tokenIdResult = ValidateTokenId();
@@ -51,8 +49,7 @@ public class TaskController(IRepository<Task> taskRepository, IRepository<TaskLi
         return Ok(taskDtos);
     }
     
-    [HttpGet]
-    [Route("/gett")]
+    [HttpGet("{id}")]
     public ActionResult<ResponseTaskDto> GetTask(int id)
     {
         var taskResult = ValidateTask(id);
@@ -62,8 +59,7 @@ public class TaskController(IRepository<Task> taskRepository, IRepository<TaskLi
         return Ok(Services.Converter<Task, ResponseTaskDto>.ToDto(taskResult.Value!));
     }
     
-    [HttpPut]
-    [Route("/updatet")]
+    [HttpPut("{id}")]
     public ActionResult<ResponseTaskDto> UpdateTask(int id, RequestTaskDto requestTaskDto)
     {
         var taskResult = ValidateTask(id);
@@ -75,7 +71,7 @@ public class TaskController(IRepository<Task> taskRepository, IRepository<TaskLi
         return Ok(Services.Converter<Task, ResponseTaskDto>.ToDto(taskResult.Value!));
     }
     
-    [HttpDelete("/deleteе")]
+    [HttpDelete("{id}")]
     public ActionResult<RequestTaskDto> DeleteTask(int id)
     {
         var taskResult = ValidateTask(id);

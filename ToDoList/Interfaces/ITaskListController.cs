@@ -13,7 +13,7 @@ public interface ITaskListController
     
     public ActionResult<ResponseTaskListDto> GetTaskList(int id);
 
-    public ActionResult<ICollection<ResponseTaskDto>> GetTasksFromTaskList(int taskListId);
+    public ActionResult<ICollection<ResponseTaskDto>> GetTasksFromTaskList(int id);
     
     // Update
     public ActionResult<ResponseTaskListDto> UpdateTaskList(int id, RequestTaskListDto responseTaskList);

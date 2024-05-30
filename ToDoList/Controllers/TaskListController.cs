@@ -15,7 +15,6 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
 {
         
     [HttpPost]
-    [Route("/create")]
     public ActionResult<ResponseTaskListDto> CreateTaskList(RequestTaskListDto requestTaskListTaskList)
     {
         var tokenIdResult = ValidateTokenId();
@@ -31,7 +30,6 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
     }
 
     [HttpGet]
-    [Route("/getall")]
     public ActionResult<ICollection<ResponseTaskListDto>> GetAllTaskLists()
     {
         var tokenIdResult = ValidateTokenId();
@@ -48,8 +46,7 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
         return Ok(taskListDtos);
     }
 
-    [HttpGet]
-    [Route("getbyid")]
+    [HttpGet("{id}")]
     public ActionResult<ResponseTaskListDto> GetTaskList(int id)
     {
         var taskListResult = ValidateTaskList(id);
@@ -60,10 +57,10 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
     }
 
     [HttpGet]
-    [Route("/gettasks")]
-    public ActionResult<ICollection<ResponseTaskDto>> GetTasksFromTaskList(int taskListId)
+    [Route("{id}/tasks")]
+    public ActionResult<ICollection<ResponseTaskDto>> GetTasksFromTaskList(int id)
     {
-        var taskListResult = ValidateTaskList(taskListId);
+        var taskListResult = ValidateTaskList(id);
         if (taskListResult.Result != null)
             return taskListResult.Result;
 
@@ -75,8 +72,7 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
         return Ok(taskDtos);
     }
 
-    [HttpPut]
-    [Route("/update")]
+    [HttpPut("{id}")]
     public ActionResult<ResponseTaskListDto> UpdateTaskList(int id, RequestTaskListDto requestTaskList)
     {
         var taskListResult = ValidateTaskList(id);
@@ -88,7 +84,7 @@ public class TaskListController(IRepository<TaskList> repository) : ControllerBa
         return Ok(Services.Converter<TaskList, ResponseTaskListDto>.ToDto(taskListResult.Value!));
     }
 
-    [HttpDelete("/delete")]
+    [HttpDelete("{id}")]
     public ActionResult<ResponseTaskListDto> DeleteTaskList(int id)
     {
         var taskListResult = ValidateTaskList(id);

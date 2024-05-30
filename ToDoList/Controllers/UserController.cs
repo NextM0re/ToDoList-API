@@ -12,7 +12,7 @@ namespace ToDoList.Controllers;
 [Route("/api/users")]
 public class UserController (IRepository<User> repository): ControllerBase, IUserController
 {
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public ActionResult<ResponseUserDto> GetUser(int id)
     {
         var result = ValidateUser(id);
@@ -24,7 +24,7 @@ public class UserController (IRepository<User> repository): ControllerBase, IUse
         return Ok(Services.Converter<User, ResponseUserDto>.ToDto(user));
     }
     
-    [HttpPut("/{id}")]
+    [HttpPut("{id}")]
     public ActionResult<ResponseUserDto> UpdateUser(int id, RequestUserDto newUser)
     {
         var result = ValidateUser(id);
@@ -41,7 +41,7 @@ public class UserController (IRepository<User> repository): ControllerBase, IUse
 
     }
     
-    [HttpDelete("/{id}")]
+    [HttpDelete("{id}")]
     public ActionResult<ResponseUserDto> DeleteUser(int id)
     {
         var result = ValidateUser(id);
